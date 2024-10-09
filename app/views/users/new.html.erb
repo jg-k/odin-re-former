@@ -1,5 +1,5 @@
 
-<h1>New User</h1>
+<h1>New User - manual</h1>
 <form action="/users" method="post" accept_charset='UTF-8'>
   <%# <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>"> %>
   <div>
@@ -10,5 +10,27 @@
   <label for="password">password</label>
   <input type="password" name="user[password]" id="password">
   </div>
-  <div><input type="submit" value="Submit">Sub</div>
+  <div><input type="submit" value="Create"></div>
 </form>
+
+
+<h1>New user - with form tags</h1>
+<%=form_tag("/users", method: "post") do%>
+<% label_tag("user_email", "Email") %>
+<%= text_field_tag("user[email]") %>
+
+<%= label_tag("user_password", "Password") %>
+<%= password_field_tag("user[password]") %>
+<%= submit_tag "Create" %>
+<%end%>
+
+<h1>New user- form_with </h1>
+<%= form_with model: @user do |form| %>
+  <%= form.label :email, "Email" %>
+  <%= form.text_field :email %>
+
+  <%= form.label :password, "Password" %>
+  <%= form.password_field :password %>
+
+  <%= form.submit "Create" %>
+<% end %>
