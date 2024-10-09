@@ -1,7 +1,24 @@
 
-<h1>New User - manual</h1>
-<form action="/users" method="post" accept_charset='UTF-8'>
-  <%# <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>"> %>
+<h1>New User - manual - turbo enabled - form token missing</h1>
+<h2><%= "Form is submitted successfully via Turbo, relying on CSRF token in <head>" %></h2>
+<form action="/users" method="post" accept_charset='UTF-8' >
+  <div>
+  <label for="email">email</label>
+  <input type="text" id="email" name="user[email]">
+  </div>
+  <div>
+  <label for="password">password</label>
+  <input type="password" name="user[password]" id="password">
+  </div>
+  <div><input type="submit" value="Create"></div>
+</form>
+
+<h1>New User - manual - turbo disabled - form token commented out</h1>
+<h2><%= "Form submit fail with CSRF error" %></h2>
+
+<form action="/users" method="post" accept_charset='UTF-8' data-turbo="false" >
+    <%# <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>"> %>
+
   <div>
   <label for="email">email</label>
   <input type="text" id="email" name="user[email]">
@@ -24,8 +41,8 @@
 <%= submit_tag "Create" %>
 <%end%>
 
-<h1>New user- form_with </h1>
-<%= form_with model: @user do |form| %>
+<h1>New user - form_with </h1>
+<%= form_with model: @user, data: {turbo: "false"} do |form| %>
   <%= form.label :email, "Email" %>
   <%= form.text_field :email %>
 
